@@ -2,11 +2,11 @@ import { async } from 'q';
 
 <template>
     <div>
-        <h1>Today's Most Popular Movies</h1>
-        <div class="movie-container">
+        <h1>Today's Most Popular TV Shows</h1>
+        <div class="tvShow-container">
             <ul>
-                <li :key="movie.id" v-for="movie in movies">
-                    <Movie :movie="movie"/>
+                <li :key="tvShow.id" v-for="tvShow in tvShows">
+                    <TVShow :tvShow="tvShow"/>
                 </li>
             </ul>
         </div>
@@ -15,16 +15,16 @@ import { async } from 'q';
 
 
 <script>
-import Movie from './Movie.vue';
+import TVShow from './TVShow.vue';
 
 export default {
-    name: "MoviesList",
+    name: "tvShowsList",
     components: {
-        Movie,
+        TVShow,
     },
     data() {
         return {
-            movies: []
+            tvShows: []
         }
     },
     created() {
@@ -33,10 +33,10 @@ export default {
     methods: {
         fetchData: async function() {
             try {
-                const res = await fetch('https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=253f8b80b150f44540f78217551365ee');
-                const movies  = await res.json();
-                this.movies = movies.results;
-                console.log(this.movies);
+                const res = await fetch('https://api.themoviedb.org/3/discover/tv?api_key=253f8b80b150f44540f78217551365ee&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false');
+                const tvShows  = await res.json();
+                this.tvShows = tvShows.results;
+                console.log(this.tvShows);
             } catch(e) {
                 console.log(e);
             }
