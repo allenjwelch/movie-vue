@@ -14,7 +14,7 @@
                 <li><router-link to="/">Home</router-link></li>
                 <li><router-link to="/todolist">Todo List</router-link></li>
                 <li><router-link to="/examples">Examples</router-link></li>
-                <li><router-link to="/movies">Movies</router-link></li>
+                <li><router-link to="/discover">Discover</router-link></li>
             </ul>
         </nav>
 
@@ -29,7 +29,7 @@
                 <li v-on:click="closeMenu"><router-link to="/">Home</router-link></li>
                 <li v-on:click="closeMenu"><router-link to="/todolist">Todo List</router-link></li>
                 <li v-on:click="closeMenu"><router-link to="/examples">Examples</router-link></li>
-                <li v-on:click="closeMenu"><router-link to="/movies">Movies</router-link></li>
+                <li v-on:click="closeMenu"><router-link to="/discover">Discover</router-link></li>
             </ul>
         </nav>
     </section>

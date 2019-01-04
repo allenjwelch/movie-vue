@@ -13,7 +13,7 @@ import TelevisionList from '../components/TelevisionList.vue';
 
 
 export default {
-    name: "Movies",
+    name: "Discover",
     components: {
         MoviesList,
         TelevisionList

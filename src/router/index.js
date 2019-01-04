@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import Home from '../views/Home.vue';
 import TodoList from '../views/TodoList.vue';
 import Examples from '../views/Examples.vue';
-import Movies from '../views/Movies.vue';
+import Discover from '../views/Discover.vue';
 import MovieDetail from '@/components/MovieDetail';
 
 Vue.use(Router);
@@ -27,12 +27,12 @@ export default new Router({
       component: Examples
     },
     {
-      path: '/movies/',
-      name: 'movies',
-      component: Movies
+      path: '/discover/',
+      name: 'discover',
+      component: Discover
     },
     {
-      path: '/movie/:id',
+      path: '/discover/:id',
       name: 'movieDetail',
       component: MovieDetail
     }
