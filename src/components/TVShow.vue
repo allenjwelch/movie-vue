@@ -1,8 +1,8 @@
 <template>
     <div>
-        <!-- <router-link :to="tvPath"> -->
+        <router-link :to="tvPath">
             <img :src="posterImage" :alt="tvShow.title" />
-        <!-- </router-link> -->
+        </router-link>
     </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
             return `${POSTER_PATH}/${this.tvShow.poster_path}`;
         },
         tvPath: function() {
-            return `/tvShow/${this.tvShow.id}`;
+            return `/discover/tv/${this.tvShow.id}`;
         }
     }
 }
