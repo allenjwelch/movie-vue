@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '../views/Home.vue';
 import TodoList from '../views/TodoList.vue';
-import Examples from '../views/Examples.vue';
+import Search from '../views/Search.vue';
 import Discover from '../views/Discover.vue';
 import MovieDetail from '@/components/MovieDetail';
 import TVShowDetail from '@/components/TVShowDetail';
@@ -23,9 +23,9 @@ export default new Router({
       component: TodoList
     },
     {
-      path: '/examples',
-      name: 'examples',
-      component: Examples
+      path: '/search',
+      name: 'search',
+      component: Search
     },
     {
       path: '/discover/',

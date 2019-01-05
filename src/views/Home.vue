@@ -20,6 +20,7 @@ export default {
 section {
   height: 100%;
 }
+
 .appLogo {
   margin: 50px auto 20px;
   height: 200px;
