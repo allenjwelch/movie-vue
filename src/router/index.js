@@ -5,6 +5,7 @@ import TodoList from '../views/TodoList.vue';
 import Examples from '../views/Examples.vue';
 import Discover from '../views/Discover.vue';
 import MovieDetail from '@/components/MovieDetail';
+import TVShowDetail from '@/components/TVShowDetail';
 
 Vue.use(Router);
 
@@ -32,9 +33,14 @@ export default new Router({
       component: Discover
     },
     {
-      path: '/discover/:id',
+      path: '/discover/movie/:id',
       name: 'movieDetail',
       component: MovieDetail
+    },
+    {
+      path: '/discover/tv/:id',
+      name: 'tvShowDetail',
+      component: TVShowDetail
     }
   ]
 });

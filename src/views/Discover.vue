@@ -17,35 +17,45 @@ import TelevisionList from '../components/TelevisionList.vue';
 
 
 export default {
-    name: "Discover",
-    components: {
-        MoviesList,
-        TelevisionList
-    },
-    data() {
-      return {
-        showMovies: true,
-        showTv: false
-      }
-    },
-    methods: {
-      displayToggle: function() {
-        if(this.showMovies) {
-          console.log(this.showMovies)
-          this.showMovies = false;
-          this.showTv = true;
-        } else {
-          console.log(this.showMovies)
-
-            this.showMovies = true;
-            this.showTv = false;
-        }
+  name: "Discover",
+  components: {
+      MoviesList,
+      TelevisionList
+  },
+  data() {
+    return {
+      showMovies: true,
+      showTv: false
+    }
+  },
+  methods: {
+    displayToggle: function() {
+      if(this.showMovies) {
+        this.showMovies = false;
+        this.showTv = true;
+      } else {
+        this.showMovies = true;
+        this.showTv = false;
       }
     }
+  }
 }
 </script>
 
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
+
+button {
+
+  position: absolute;
+  top: 60px;
+  left: 5px;
+  border-radius: 8px;
+  font: 700 16px Arial;
+
+  &:focus {
+    outline: none;
+  }
+}
 
 </style>

@@ -1,14 +1,15 @@
 <template>
     <transition name="fade">
-        <div class="movie-wrapper" :style="styles">
+        <div class="tvShow-wrapper" :style="styles">
           <BackBtn />
-            <div class="movie-info">
-                <h1>{{ movie.title }}</h1>
-                <h3>Release Date: {{ movie.release_date }}</h3>
-                <h3>Vote Average: {{ movie.vote_average }}</h3>
-                <h3>Genre: {{ movieGenres }}</h3>
-
-                <p>{{movie.overview}}</p>
+            <div class="tvShow-info">
+                <h1>{{ tvShow.name }}</h1>
+                <h3>Vote Average: {{ tvShow.vote_average }}</h3>
+                <h4>First Aired: {{ tvShow.first_air_date }}</h4>
+                <h4>{{ tvShow.number_of_seasons }} Seasons</h4>
+                <h4>{{ tvShow.number_of_episodes }} Episodes</h4>
+                <h4>Network: {{ tvShow.networks[0].name }}</h4>
+                <p>{{tvShow.overview}}</p>
             </div>
         </div>
     </transition>
@@ -20,13 +21,13 @@ const BACKDROP_PATH = "http://image.tmdb.org/t/p/w1280";
 import BackBtn from "./BackBtn.vue"
 
 export default {
-    components: {
-      BackBtn,
-    },
     data() {
         return {
-            movie: {}
+            tvShow: {}
         };
+    },
+    components: {
+      BackBtn,
     },
     created: function() {
         this.fetchData();
@@ -35,48 +36,40 @@ export default {
         styles() {
             return {
                 background: `url(${BACKDROP_PATH}/${
-                    this.movie.backdrop_path
+                    this.tvShow.backdrop_path
                 }) no-repeat`
             };
-        },
-        movieGenres: function() {
-          let movieGenreList = [];
-          this.movie.genres.forEach(index => {
-              movieGenreList.push(index.name);
-          });
-          return movieGenreList.join(", ");
         }
     },
-
     methods: {
         fetchData: async function() {
             try {
                 const res = await fetch(
-                    `https://api.themoviedb.org/3/movie/${
+                    `https://api.themoviedb.org/3/tv/${
                         this.$route.params.id
                     }?api_key=253f8b80b150f44540f78217551365ee`
                 );
-                const movie = await res.json();
-                this.movie = movie;
-                console.log(movie);
+                const tvShow = await res.json();
+                this.tvShow = tvShow;
+                console.log(tvShow);
             } catch (e) {
                 console.log(e);
             }
-        }
-    },
+        },
+    }
 };
 </script>
 
 
 <style lang="scss" scoped>
-.movie-wrapper {
+.tvShow-wrapper {
     position: relative;
     padding-top: 0vh;
     background-size: cover !important;
     background-position: 50% 100% !important;
     min-height: calc(100vh - 50px - 30px);
 
-    .movie-info {
+    .tvShow-info {
         background: #fff;
         color: #222;
         padding: 20px 10%;
@@ -86,13 +79,10 @@ export default {
         bottom: 0;
         margin: 0 auto;
         width: auto;
-        opacity: 0.7;
+        opacity: 0.8;
 
-        h1 {
-          margin: 10px auto;
-        }
-        h3 {
-          margin: 0;
+        h4 {
+            margin: 0;
         }
     }
 }

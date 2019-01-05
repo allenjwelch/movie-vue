@@ -36,7 +36,6 @@ export default {
                 const res = await fetch('https://api.themoviedb.org/3/discover/tv?api_key=253f8b80b150f44540f78217551365ee&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false');
                 const tvShows  = await res.json();
                 this.tvShows = tvShows.results;
-                console.log(this.tvShows);
             } catch(e) {
                 console.log(e);
             }
