@@ -12,9 +12,9 @@
         <nav class="navbar">
             <ul>
                 <li><router-link to="/">Home</router-link></li>
-                <li><router-link to="/todolist">Todo List</router-link></li>
-                <li><router-link to="/examples">Examples</router-link></li>
                 <li><router-link to="/discover">Discover</router-link></li>
+                <li><router-link to="/examples">Search</router-link></li>
+                <li><router-link to="/todolist">WatchList</router-link></li>
             </ul>
         </nav>
 
