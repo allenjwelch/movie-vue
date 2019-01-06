@@ -1,92 +1,183 @@
-/* eslint-disable */
-<template>
-    <section>
-        <h1>{{newTitle}}</h1>
-        <p>Vue Directives</p>
+import { async } from 'q';
 
-        <div>
-            <h4 v-bind:style="styleObject"> {{message}} </h4>
-            <input type="text" v-model="message">
-            <button v-on:click="reverseMessage">Reverse Message</button>
-            <button v-on:click="enlargeText">Make it Big</button>
-            <button v-on:click="decreaseText">Make it Small</button>
+<template>
+    <section class="search">
+        <h1>Search</h1>
+        <form class="search-form">
+            <label for="title">Search by Keyword</label>
+            <input v-model="searchKeyword" type="text" id="searchKeyword">
+            <!-- <label for="genre">Search by Genre</label>
+            <input v-bind="genre" type="text" id="searchGenre">-->
+            <label for="searchType">Search by Type</label>
+            <select v-model="searchType" id="searchType">
+                <option value="all">All</option>
+                <option value="movie">Movie</option>
+                <option value="tv">TV Show</option>
+                <option value="actor">Actor</option>
+            </select>
+            <button v-on:click="search">Search</button>
+        </form>
+
+        <div class="results-container">
+            <ul>
+                <li :key="result.id" v-for="result in searchResults">
+                    <!-- {{result.name || result.title}} -->
+                    <SearchResults :result="result"/>
+                </li>
+            </ul>
         </div>
-        <ul>
-            <h4>Display List:</h4>
-            <li v-bind:key="index" v-for="index in todos">{{index}}</li>
-            <br>
-            <li v-bind:key="index" v-for="index in people">Name: {{index.name}}</li>
-        </ul>
     </section>
 </template>
 
 <script>
-// import Vue from 'vue'
-// import HelloWorld from '../components/HelloWorld.vue'
-
+import SearchResults from '../components/SearchResults.vue';
 
 export default {
-    name: "Examples",
+    name: "search",
+    components: {
+        SearchResults,
+    },
     data() {
         return {
-            message: 'Change this message',
-            isTrue: true,
-            title: 'Examples',
-            styleObject: {
-                color: '#333',
-                fontSize: '16px'
-            },
-            todos: [
-                "task1",
-                "task2",
-                "task3",
-                "task4"
-            ],
-            people: {
-                Allen: {
-                    name: "allen",
-                    age: 34
-                },
-                Briana: {
-                    name: "briana",
-                    age: 34,
-                }
+            searchKeyword: "",
+            searchType: "all",
+            searchResults: [],
+        };
+    },
+    methods: {
+        search: async function() {
+            event.preventDefault();
+            const baseURL = "https://api.themoviedb.org/3/search";
+            switch (this.searchType) {
+                case "all":
+                    console.log(this.searchType);
+                    try {
+                        const res = await fetch(`${baseURL}/multi?api_key=253f8b80b150f44540f78217551365ee&language=en-US&query=${this.searchKeyword}&page=1&include_adult=false`);
+                        const searchResults = await res.json();
+                        this.searchResults = searchResults.results;
+                        console.log(searchResults);
+                    } catch (e) {
+                        console.log(e);
+                    }
+                    break;
+                case "movie":
+                    console.log(this.searchType);
+                    try {
+                        const res = await fetch(`${baseURL}/movie?api_key=253f8b80b150f44540f78217551365ee&language=en-US&query=${this.searchKeyword}&page=1&include_adult=false`);
+                        const searchResults = await res.json();
+                        this.searchResults = searchResults.results;
+                        console.log(searchResults);
+                    } catch (e) {
+                        console.log(e);
+                    }
+                    break;
+                case "tv":
+                    console.log(this.searchType);
+                    try {
+                        const res = await fetch(`${baseURL}/tv?api_key=253f8b80b150f44540f78217551365ee&language=en-US&query=${this.searchKeyword}&page=1`);
+                        const searchResults = await res.json();
+                        this.searchResults = searchResults.results;
+                        console.log(searchResults);
+                    } catch (e) {
+                        console.log(e);
+                    }
+                    break;
+                case "actor":
+                    console.log(this.searchType);
+                    try {
+                        const res = await fetch(`${baseURL}/person?api_key=253f8b80b150f44540f78217551365ee&language=en-US&query=${this.searchKeyword}&page=1&include_adult=false`);
+                        const searchResults = await res.json();
+                        this.searchResults = searchResults.results;
+                        console.log(searchResults);
+                    } catch (e) {
+                        console.log(e);
+                    }
+                    break;
+                default: //all
+                    console.log(this.searchType);
+                    try {
+                        const res = await fetch(`${baseURL}/multi?api_key=253f8b80b150f44540f78217551365ee&language=en-US&query=${this.searchKeyword}&page=1&include_adult=false`);
+                        const searchResults = await res.json();
+                        this.searchResults = searchResults.results;
+                        console.log(searchResults);
+                    } catch (e) {
+                        console.log(e);
+                    }
+                    break;
             }
         }
     },
-    methods: {
-        reverseMessage: function() {
-            this.message = this.message.split('').reverse().join('')
-        },
-        enlargeText: function() {
-            this.styleObject.fontSize = '28px';
-        },
-        decreaseText: function() {
-            this.styleObject.fontSize = '16px';
-        }
-    },
-    computed: {
-        newTitle: function() {
-            // if(!this.isTrue) {
-            //     this.title = "New Title"
-            // }
-            return this.title;
-            // console.log(this.title);
-            // console.log(this.isTrue);
-        }
-    }
-}
+    computed: {}
+};
 
 </script>
 
 <style lang="scss" scoped>
-input, button {
-    display: block;
-    margin: 10px auto;
-}
+.search {
+    .search-form {
+        text-align: left;
+        margin: 0 auto;
+        width: 90%;
+        max-width: 500px;
 
-li {
-    width: 100px;
-    margin: 0 auto;
+        input,
+        label,
+        select,
+        button {
+            width: 100%;
+            display: block;
+            margin: 20px auto;
+            font: 400 16px Arial;
+        }
+
+        label {
+            margin-bottom: -20px;
+        }
+
+        input {
+            width: 96%;
+            @media (min-width: 550px) {
+                width: 97%;
+            }
+        }
+
+        input,
+        select,
+        button {
+            padding: 10px 0 10px 10px;
+        }
+
+        option {
+            padding: 10px;
+        }
+    }
+
+    .results-container {
+        ul {
+            display: grid;
+            list-style: none;
+            padding: 10px;
+            margin: 0;
+            grid-row-gap: 20px;
+            grid-template-columns: repeat(1, 1fr);
+
+            @media (min-width: 551px) {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            @media (min-width: 1024px) {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            @media (min-width: 1200px) {
+                grid-template-columns: repeat(6, 1fr);
+            }
+
+            li {
+                margin: 10px;
+            }
+        }
+
+    }
 }
 </style>

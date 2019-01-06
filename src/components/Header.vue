@@ -14,7 +14,7 @@
                 <li><router-link to="/">Home</router-link></li>
                 <li><router-link to="/discover">Discover</router-link></li>
                 <li><router-link to="/search">Search</router-link></li>
-                <li><router-link to="/todolist">WatchList</router-link></li>
+                <li><router-link to="/watchlist">WatchList</router-link></li>
             </ul>
         </nav>
 
@@ -27,9 +27,9 @@
 
             <ul class="navbar dropdown">
                 <li v-on:click="closeMenu"><router-link to="/">Home</router-link></li>
-                <li v-on:click="closeMenu"><router-link to="/todolist">Todo List</router-link></li>
-                <li v-on:click="closeMenu"><router-link to="/examples">Examples</router-link></li>
                 <li v-on:click="closeMenu"><router-link to="/discover">Discover</router-link></li>
+                <li v-on:click="closeMenu"><router-link to="/search">Search</router-link></li>
+                <li v-on:click="closeMenu"><router-link to="/watchlist">Watchlist</router-link></li>
             </ul>
         </nav>
     </section>

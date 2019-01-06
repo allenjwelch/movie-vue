@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '../views/Home.vue';
-import TodoList from '../views/TodoList.vue';
+import Watchlist from '../views/Watchlist.vue';
 import Search from '../views/Search.vue';
 import Discover from '../views/Discover.vue';
 import MovieDetail from '@/components/MovieDetail';
@@ -18,9 +18,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/todolist',
-      name: 'todolist',
-      component: TodoList
+      path: '/watchlist',
+      name: 'watchlist',
+      component: Watchlist
     },
     {
       path: '/search',
