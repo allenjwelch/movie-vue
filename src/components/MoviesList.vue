@@ -36,7 +36,6 @@ export default {
                 const res = await fetch('https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=253f8b80b150f44540f78217551365ee');
                 const movies  = await res.json();
                 this.movies = movies.results;
-                console.log(this.movies);
             } catch(e) {
                 console.log(e);
             }

@@ -24,7 +24,7 @@ export default {
             return `${POSTER_PATH}/${this.movie.poster_path}`;
         },
         moviePath: function() {
-            return `/movie/${this.movie.id}`;
+            return `/discover/movie/${this.movie.id}`;
         }
     }
 }

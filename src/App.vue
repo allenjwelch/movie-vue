@@ -42,7 +42,7 @@ body {
 
   .main {
     // padding: 20px;
-    min-height: calc(100vh - 50px - 30px - 40px);
+    min-height: calc(100vh - 50px - 30px);
 
   }
 
