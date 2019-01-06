@@ -1,6 +1,13 @@
-# movie-vue
+# Movie-Vue
 
-> A Vue/Node application utilizing the Open Movie DB
+#### GitHub: https://github.com/allenjwelch/movie-vue
+#### Heroku: https://movie-vue.herokuapp.com/
+
+## Description:
+A Vue.js & Node.js application utilizing the Open Movie DB.
+
+![title image](./src/assets/MovieVue.png)
+
 
 ## Build Setup
 
