@@ -11,7 +11,7 @@
 
         <nav class="navbar">
             <ul>
-                <li><router-link to="/">Home</router-link></li>
+                <li><router-link to="/signin">Sign-In</router-link></li>
                 <li><router-link to="/discover">Discover</router-link></li>
                 <li><router-link to="/search">Search</router-link></li>
                 <li><router-link to="/watchlist">WatchList</router-link></li>
@@ -26,7 +26,7 @@
             </span>
 
             <ul class="navbar dropdown">
-                <li v-on:click="closeMenu"><router-link to="/">Home</router-link></li>
+                <li v-on:click="closeMenu"><router-link to="/signin">Sign-In</router-link></li>
                 <li v-on:click="closeMenu"><router-link to="/discover">Discover</router-link></li>
                 <li v-on:click="closeMenu"><router-link to="/search">Search</router-link></li>
                 <li v-on:click="closeMenu"><router-link to="/watchlist">Watchlist</router-link></li>

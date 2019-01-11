@@ -16,6 +16,9 @@ Built with the help of tutorials and guides from Scott Tolinski's "Vue.js for Ev
 # install dependencies
 npm install
 
+# start server
+node server.js
+
 # serve with hot reload at localhost:8080
 npm run dev
 
