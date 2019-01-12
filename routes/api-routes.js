@@ -1,30 +1,31 @@
 // Dependencies
-let connection = require("./connection.js");
+let connection = require('./connection.js');
 
 // Routes
 // =============================================================
 module.exports = function(app) {
-  // Get all chirps
-  app.get("/api/all", function(req, res) {
-    let dbQuery = "SELECT * FROM chirps";
+    // Get all chirps
+    app.get('/api/all', function(req, res) {
+        let dbQuery = 'SELECT * FROM users';
 
-    connection.query(dbQuery, function(err, result) {
-      if (err) throw err;
-      res.json(result);
+        connection.query(dbQuery, function(err, result) {
+            if (err) throw err;
+            res.json(result);
+            // console.log('query successful');
+            // console.log(result);
+        });
     });
-  });
 
-  // Add a chirp
-  app.post("/api/new", function(req, res) {
-    console.log("Chirp Data:");
-    console.log(req.body);
+    app.post('/api/user/new', function(req, res) {
+        console.log(req.body);
 
-    let dbQuery = "INSERT INTO chirps (author, body, created_at) VALUES (?,?,?)";
+        let dbQuery = 'INSERT INTO users (email, password) VALUES (?,?)';
+        let post = {email: req.body.email, password: req.body.password};
 
-    connection.query(dbQuery, [req.body.author, req.body.body, req.body.created_at], function(err, result) {
-      if (err) throw err;
-      console.log("Chirp Successfully Saved!");
-      res.end();
+        connection.query( dbQuery, post, function(err, result) {
+            if (err) throw err;
+            console.log('User Added!');
+            res.end();
+        });
     });
-  });
 };

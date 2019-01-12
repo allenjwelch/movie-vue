@@ -6,8 +6,8 @@ let connection = mysql.createConnection({
   port: 3306,
   host: "localhost",
   user: "root",
-  password: "",
-  database: "chirpy"
+  password: "root",
+  database: "movievue_db"
 });
 
 // Connect to the database

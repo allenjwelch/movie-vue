@@ -6,13 +6,15 @@
         <label for="password">Password</label>
         <input v-model="password" type="password" name="password">
         <br>
-
-        {{email}}
-        {{password}}
+        <button @click.prevent="submit">Submit</button>
     </section>
 </template>
 
 <script>
+// import axios from 'axios';
+import api from '../router/api';
+
+// const API_URL = 'http://localhost:5000';
 
 export default {
     name: 'SignIn',
@@ -20,6 +22,14 @@ export default {
         return {
             email: '',
             password: ''
+        }
+    },
+    methods: {
+        submit: function() {
+            console.log(`Email: ${this.email}; Password: ${this.password}`)
+            // let data = api.dev();
+            // console.log(data);
+            api.postNewUser(this.email, this.password);
         }
     }
 }

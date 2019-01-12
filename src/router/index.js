@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from '../views/Home.vue';
 import SignIn from '../views/SignIn.vue';
 import Watchlist from '../views/Watchlist.vue';
+import Admin from '../views/Admin.vue';
 import Search from '../views/Search.vue';
 import Discover from '../views/Discover.vue';
 import MovieDetail from '@/components/MovieDetail';
@@ -28,6 +29,11 @@ export default new Router({
       name: 'watchlist',
       component: Watchlist
     },
+    {
+        path: '/admin',
+        name: 'admin',
+        component: Admin
+      },
     {
       path: '/search',
       name: 'search',
