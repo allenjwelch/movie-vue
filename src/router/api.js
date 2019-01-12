@@ -21,22 +21,33 @@ export default {
     getAllUsers() {
         // let data = 'this should work';// works..
         let data = [];
-        axios.get(`${baseURL}/api/all`)
-            .then(response => {
-                console.log(response.data);
-                data.push(...response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        axios({
+            method:'get',
+            url:`${baseURL}/api/all`,
+        })
+        .then(response => {
+            console.log(response.data);
+            data.push(...response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
         // return baseURL; //--> works
         return data;
     },
     postNewUser(email, password) {
-        axios.post(`${baseURL}/api/user/new`, {
-            email: email,
-            password: password
-            })
+        // axios.post(`${baseURL}/api/user/new`, {
+        axios({
+            method:'post',
+            url:`${baseURL}/api/user/new`,
+            data: {
+                email: email,
+                password: password
+            }
+        })
+            // email: email,
+            // password: password
+            // })
             .then(response => {
                 console.log(response.data);
             })

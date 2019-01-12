@@ -1,6 +1,13 @@
 <template>
     <section>
-        {{users}}
+        <h1>Admin</h1>
+
+        <div class="userData">
+            <h3>Active Users</h3>
+            <ul>
+                <li v-bind:key="user.id" v-for="user in users">{{user.id}} || {{user.email}}</li>
+            </ul>
+        </div>
     </section>
 </template>
 
@@ -48,26 +55,24 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 section {
   height: 100%;
 }
 
-.appLogo {
-  margin: 50px auto 20px;
-  height: 200px;
-  width: 200px;
-
-  @media (min-width: 550px) {
-    height: 350px;
-    width: 350px;
-  }
+.userData {
+    text-align: left;
+    width: 80%;
+    margin: 0 auto;
+    h3 {
+        margin: 0;
+    };
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
 }
 
-p {
-  width: 90%;
-  margin: 10px auto;
-}
 
 
 </style>
