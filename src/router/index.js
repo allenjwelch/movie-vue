@@ -8,10 +8,19 @@ import Search from '../views/Search.vue';
 import Discover from '../views/Discover.vue';
 import MovieDetail from '@/components/MovieDetail';
 import TVShowDetail from '@/components/TVShowDetail';
+import Auth from '@okta/okta-vue'
+import PostsManager from '@/components/PostsManager'
+
+Vue.use(Auth, {
+    issuer: 'https://dev-885898.oktapreview.com/oauth2/default',
+    client_id: '0oaizv8hncdFtMdOz0h7',
+    redirect_uri: 'http://localhost:8080/implicit/callback',
+    scope: 'openid profile email'
+  })
 
 Vue.use(Router);
 
-export default new Router({
+let router = new Router({
   mode: 'history',
   routes: [
     {
@@ -27,12 +36,18 @@ export default new Router({
     {
       path: '/watchlist',
       name: 'watchlist',
-      component: Watchlist
+      component: Watchlist,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
         path: '/admin',
         name: 'admin',
-        component: Admin
+        component: Admin,
+        meta: {
+            requiresAuth: true
+          }
       },
     {
       path: '/search',
@@ -53,6 +68,22 @@ export default new Router({
       path: '/discover/tv/:id',
       name: 'tvShowDetail',
       component: TVShowDetail
-    }
+    },
+    {
+      path: '/implicit/callback',
+      component: Auth.handleCallback()
+    },
+    {
+        path: '/posts-manager',
+        name: 'PostsManager',
+        component: PostsManager,
+        meta: {
+          requiresAuth: true
+        }
+      }
   ]
 });
+
+router.beforeEach(Vue.prototype.$auth.authRedirectGuard());
+
+export default router

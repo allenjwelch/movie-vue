@@ -1,4 +1,4 @@
-// import Vue from 'vue'
+import Vue from 'vue'
 import axios from 'axios'
 let baseURL;
 let data;
@@ -18,12 +18,17 @@ export default {
     prod() {
         console.log(baseURL)
     },
-    getAllUsers() {
+    async getAllUsers() {
         // let data = 'this should work';// works..
         let data = [];
+        let accessToken = await Vue.prototype.$auth.getAccessToken()
         axios({
+
             method:'get',
             url:`${baseURL}/api/all`,
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
         })
         .then(response => {
             console.log(response.data);
@@ -35,7 +40,9 @@ export default {
         // return baseURL; //--> works
         return data;
     },
-    postNewUser(email, password) {
+    async postNewUser(email, password) {
+        let accessToken = await Vue.prototype.$auth.getAccessToken()
+
         // axios.post(`${baseURL}/api/user/new`, {
         axios({
             method:'post',
@@ -43,6 +50,9 @@ export default {
             data: {
                 email: email,
                 password: password
+            },
+            headers: {
+                Authorization: `Bearer ${accessToken}`
             }
         })
             // email: email,

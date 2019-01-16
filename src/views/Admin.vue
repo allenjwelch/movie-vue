@@ -34,8 +34,8 @@ export default {
         this.getUsers();
     },
     methods: {
-        getUsers() {
-            this.users = api.getAllUsers();
+        async getUsers() {
+            this.users = await api.getAllUsers();
 
             // api.getAllUsers().then(data => {
                 //     response.json({ message: 'Request received!', data })

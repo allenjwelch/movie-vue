@@ -11,6 +11,8 @@
 
         <nav class="navbar">
             <ul>
+                <li @click.prevent="login" v-if="!activeUser">Login</li>
+                <li @click.prevent="logout" v-else>Logout</li>
                 <li><router-link to="/signin">Sign-In</router-link></li>
                 <li><router-link to="/discover">Discover</router-link></li>
                 <li><router-link to="/search">Search</router-link></li>
@@ -26,6 +28,8 @@
             </span>
 
             <ul class="navbar dropdown">
+                <li @click.prevent="login" v-if="!activeUser">Login</li>
+                <li @click.prevent="logout" v-else>Logout</li>
                 <li v-on:click="closeMenu"><router-link to="/signin">Sign-In</router-link></li>
                 <li v-on:click="closeMenu"><router-link to="/discover">Discover</router-link></li>
                 <li v-on:click="closeMenu"><router-link to="/search">Search</router-link></li>
@@ -44,9 +48,15 @@ export default {
     },
     data() {
         return {
-            name: 'Allen',
-            show: false,
+            activeUser: null,
         }
+    },
+    async created () {
+        await this.refreshActiveUser()
+    },
+    watch: {
+        // everytime a route is changed refresh the activeUser
+        '$route': 'refreshActiveUser'
     },
     methods: {
         navToggle: function() {
@@ -54,6 +64,17 @@ export default {
         },
         closeMenu: function() {
             document.getElementById('topNav').classList.toggle('active');
+        },
+        login () {
+            this.$auth.loginRedirect()
+        },
+        async refreshActiveUser () {
+            this.activeUser = await this.$auth.getUser()
+        },
+        async logout () {
+            await this.$auth.logout()
+            await this.refreshActiveUser()
+            this.$router.push('/')
         }
     }
 }
@@ -101,6 +122,8 @@ export default {
             li {
                 display: inline-block;
                 padding: 0 20px;
+                color: #fff;
+                cursor: pointer;
                 &:not(:last-child) {
                     border-right: 1px solid #fff;
                 }
