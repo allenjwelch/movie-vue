@@ -6,9 +6,23 @@
 </template>
 
 <script>
+import api from '../router/api';
 
 export default {
     name: 'Watchlist',
+    data() {
+        return {
+            user: '',
+        }
+    },
+    created: function() {
+        // this.getToken();
+    },
+    methods: {
+        // async getToken() {
+        //     this.user = await api.getToken();
+        // }
+    }
 }
 </script>
 

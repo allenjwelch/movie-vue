@@ -7,6 +7,8 @@
         <input v-model="password" type="password" name="password">
         <br>
         <button @click.prevent="submit">Submit</button>
+
+        <h5>Logged In: {{loggedIn}}</h5>
     </section>
 </template>
 
@@ -21,16 +23,19 @@ export default {
     data() {
         return {
             email: '',
-            password: ''
+            password: '', //! <<-- probably not a good idea..
+            loggedIn: false,
         }
     },
+    computed: {
+    },
     methods: {
-        submit: function() {
+        async submit() {
             console.log(`Email: ${this.email}; Password: ${this.password}`)
-            // let data = api.dev();
-            // console.log(data);
-            api.postNewUser(this.email, this.password);
+            await api.postNewUser(this.email, this.password)
+
         }
+        // need method to check for token
     }
 }
 </script>

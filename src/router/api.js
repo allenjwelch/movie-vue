@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
+// import oktaJwtVerifier from '@okta/jwt-verifier'
 let baseURL;
 let data;
 
@@ -18,17 +19,31 @@ export default {
     prod() {
         console.log(baseURL)
     },
+    // async getToken() {
+    //     let userData;
+    //     let accessToken = await Vue.prototype.$auth.getAccessToken();
+    //     oktaJwtVerifier.verifyAccessToken(accessToken)
+    //     .then(jwt => {
+    //       req.user = {
+    //         uid: jwt.claims.uid,
+    //         email: jwt.claims.sub
+    //       };
+    //       console.log(req.user);
+    //       userData = req.user
+    //       return userData;
+    //     })
+    // },
     async getAllUsers() {
         // let data = 'this should work';// works..
         let data = [];
-        let accessToken = await Vue.prototype.$auth.getAccessToken()
+        // let accessToken = await Vue.prototype.$auth.getAccessToken()
         axios({
 
             method:'get',
             url:`${baseURL}/api/all`,
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
+            // headers: {
+            //     Authorization: `Bearer ${accessToken}`
+            // }
         })
         .then(response => {
             console.log(response.data);
@@ -40,30 +55,59 @@ export default {
         // return baseURL; //--> works
         return data;
     },
+    async getUser() {
+        // let data = 'this should work';// works..
+        let data = [];
+        // let accessToken = await Vue.prototype.$auth.getAccessToken()
+        axios({
+
+            method:'get',
+            url:`${baseURL}/api/user/:userID`,
+            // headers: {
+            //     Authorization: `Bearer ${accessToken}`
+            // }
+        })
+        .then(response => {
+            console.log(response.data);
+            data.push(...response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+        // return baseURL; //--> works
+        return data;
+    },
+
     async postNewUser(email, password) {
-        let accessToken = await Vue.prototype.$auth.getAccessToken()
+        // let accessToken = await Vue.prototype.$auth.getAccessToken()
+        let loggedIn;
 
         // axios.post(`${baseURL}/api/user/new`, {
         axios({
             method:'post',
-            url:`${baseURL}/api/user/new`,
+            url:`${baseURL}/api/user`,
             data: {
                 email: email,
                 password: password
             },
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
+            // headers: {
+            //     Authorization: `Bearer ${accessToken}`
+            // }
         })
             // email: email,
             // password: password
             // })
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        .then(response => {
+            localStorage.setItem('token', response.data)
+            console.log(response.data);
+            console.log(loggedIn);
+            loggedIn = true;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+        return loggedIn;
+
     }
 }
 
