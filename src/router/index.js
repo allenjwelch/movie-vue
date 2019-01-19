@@ -21,69 +21,51 @@ import TVShowDetail from '@/components/TVShowDetail';
 Vue.use(Router);
 
 let router = new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/signin',
-      name: 'signin',
-      component: SignIn
-    },
-    {
-      path: '/watchlist',
-      name: 'watchlist',
-      component: Watchlist,
-    //   meta: {
-    //     requiresAuth: true
-    //   }
-    },
-    {
-        path: '/admin',
-        name: 'admin',
-        component: Admin,
-        // meta: {
-        //     requiresAuth: true
-        //   }
-      },
-    {
-      path: '/search',
-      name: 'search',
-      component: Search
-    },
-    {
-      path: '/discover/',
-      name: 'discover',
-      component: Discover
-    },
-    {
-      path: '/discover/movie/:id',
-      name: 'movieDetail',
-      component: MovieDetail
-    },
-    {
-      path: '/discover/tv/:id',
-      name: 'tvShowDetail',
-      component: TVShowDetail
-    },
-    // {
-    //   path: '/implicit/callback',
-    //   component: Auth.handleCallback()
-    // },
-    // {
-    //     path: '/posts-manager',
-    //     name: 'PostsManager',
-    //     component: PostsManager,
-    //     meta: {
-    //       requiresAuth: true
-    //     }
-    //   }
-  ]
+    mode: 'history',
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/signin',
+            name: 'signin',
+            component: SignIn
+        },
+        {
+            path: '/watchlist',
+            name: 'watchlist',
+            component: Watchlist
+        },
+        {
+            path: '/admin',
+            name: 'admin',
+            component: Admin
+        },
+        {
+            path: '/search',
+            name: 'search',
+            component: Search
+        },
+        {
+            path: '/discover/',
+            name: 'discover',
+            component: Discover
+        },
+        {
+            path: '/discover/movie/:id',
+            name: 'movieDetail',
+            component: MovieDetail
+        },
+        {
+            path: '/discover/tv/:id',
+            name: 'tvShowDetail',
+            component: TVShowDetail
+        }
+    ]
 });
 
 // router.beforeEach(Vue.prototype.$auth.authRedirectGuard());
 
-export default router
+export default router;

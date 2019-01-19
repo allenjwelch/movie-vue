@@ -29,11 +29,18 @@ export default {
     },
     computed: {
     },
+    created: function() {
+        this.checkToken();
+    },
     methods: {
         async submit() {
             console.log(`Email: ${this.email}; Password: ${this.password}`)
             await api.postNewUser(this.email, this.password)
-
+        },
+        checkToken() {
+            if(localStorage.getItem('token')) {
+                this.loggedIn = true;
+            }
         }
         // need method to check for token
     }

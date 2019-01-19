@@ -1,7 +1,14 @@
 <template>
     <section class="watchlist">
-        <h1>Coming Soon!</h1>
-        <p>Be patient! Soon you'll be able to create an account, sign in, and save movies and tv shows to your watchlist!</p>
+        <div v-if="loggedIn" class="loggedIn">
+            <h1>Your Watchlist</h1>
+            <ul>
+                <li v-bind:key="watch.id" v-for="watch in watchlist">{{watch.title}}</li>
+            </ul>
+        </div>
+        <div v-else class="logged">
+            <h1>Please log in to view your watchlist</h1>
+        </div>
     </section>
 </template>
 
@@ -12,16 +19,28 @@ export default {
     name: 'Watchlist',
     data() {
         return {
-            user: '',
+            loggedIn: false,
+            token: '',
+            watchlist: [],
         }
     },
     created: function() {
-        // this.getToken();
+        this.checkToken();
+    },
+    mounted: function() {
+        this.getWatchlist();
     },
     methods: {
-        // async getToken() {
-        //     this.user = await api.getToken();
-        // }
+        checkToken() {
+            if(localStorage.getItem('token')) {
+                this.loggedIn = true;
+                this.token = localStorage.getItem('token');
+            }
+        },
+        async getWatchlist() {
+            this.watchlist = await api.getWatchlist(this.token);
+            console.log(this.watchlist);
+        }
     }
 }
 </script>

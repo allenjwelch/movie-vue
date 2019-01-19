@@ -28,8 +28,6 @@ module.exports = function(app) {
         //     res.end();
         // });
 
-
-
         let dbQuery = `SELECT * FROM users WHERE email = '${req.body.email}'`;
         // first open transaction
         connection.beginTransaction(function(err) {
@@ -42,16 +40,7 @@ module.exports = function(app) {
                     });
                 }
 
-                // let passwordProtectedUser = {
-                //     id: result.id,
-                //     email: result.email,
-                // }
-                // // create jwt
-                // token = jwt.sign({passwordProtectedUser}, JWTpassword);
-                // result.dataValues.token = token;
-                // res.json(result);
-                console.log(result);
-
+                // console.log(result);
                 if (result.length > 0) {
                     console.log('User Exists')
                     connection.commit(function(err) {
@@ -69,18 +58,13 @@ module.exports = function(app) {
                             }
                             // create jwt
                             token = jwt.sign({passwordProtectedUser}, JWTpassword);
-                            console.log(token);
+                            // console.log(token);
                             res.json(token)
-                            // return token;
 
                         } else {
                             console.log('INCORRECT password');
                         }
-                        // console.log('success!');
                     });
-                    // console.log('82: ' + token);
-                    // return token;
-
                 } else {
                     console.log('User does NOT exist')
 
@@ -102,22 +86,8 @@ module.exports = function(app) {
                         });
                     });
                 }
-                // console.log('106: ' + token);
-                // return token;
-
             })
-            // console.log('110: ' + token);
-            // return token;
-
         })
-        // console.log('114: ' + token);
-        // return token;
-
-
-
-
-
-
 
         // // if user does not already exist, create new user
         // let dbQuery = `INSERT INTO users (email, password) VALUES ('${req.body.email}', '${req.body.password}')`;
@@ -142,16 +112,26 @@ module.exports = function(app) {
         // ) LIMIT 1;`
     });
 
-    app.get('/api/user/:userId', function(req, res) {
+    app.get('/api/watchlist/', function(req, res) {
         // verify jwt
+        let token = req.header('authorization')
+        // console.log(token);
         jwt.verify(token, JWTpassword, function(err, data) {
             if (err) {
                 res.sendStatus(403);
+                console.log('ERROR: ' + err)
             } else {
-                let userId = req.params.userId;
+                console.log('JWT Accepted')
+                // console.log(data.passwordProtectedUser)
+                let uid = data.passwordProtectedUser.id;
 
+                let dbQuery = `SELECT * FROM watchlists WHERE uid = '${uid}'`;
+                connection.query(dbQuery, function(err, result) {
+                    if (err) throw err;
+                    res.json(result);
+                    // console.log(result);
+                });
             };
         });
-      });
-
+    });
 };

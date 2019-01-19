@@ -11,12 +11,12 @@
 
         <nav class="navbar">
             <ul>
-                <li @click.prevent="login" v-if="!activeUser">Login</li>
-                <li @click.prevent="logout" v-else>Logout</li>
-                <li><router-link to="/signin">Sign-In</router-link></li>
+                <li v-if="!loggedIn"><router-link to="/signin">Sign-In</router-link></li>
+                <li v-else @click="logout">Sign-Out</li>
                 <li><router-link to="/discover">Discover</router-link></li>
                 <li><router-link to="/search">Search</router-link></li>
                 <li><router-link to="/watchlist">WatchList</router-link></li>
+
             </ul>
         </nav>
 
@@ -28,9 +28,8 @@
             </span>
 
             <ul class="navbar dropdown">
-                <li @click.prevent="login" v-if="!activeUser">Login</li>
-                <li @click.prevent="logout" v-else>Logout</li>
-                <li v-on:click="closeMenu"><router-link to="/signin">Sign-In</router-link></li>
+                <li v-if="!loggedIn" v-on:click="closeMenu"><router-link to="/signin">Sign-In</router-link></li>
+                <li v-else v-on:click="logout">Sign-Out</li>
                 <li v-on:click="closeMenu"><router-link to="/discover">Discover</router-link></li>
                 <li v-on:click="closeMenu"><router-link to="/search">Search</router-link></li>
                 <li v-on:click="closeMenu"><router-link to="/watchlist">Watchlist</router-link></li>
@@ -48,15 +47,20 @@ export default {
     },
     data() {
         return {
-            activeUser: null,
+            loggedIn: false,
+
         }
     },
-    async created () {
-        await this.refreshActiveUser()
+    created: function() {
+        this.checkToken();
     },
     watch: {
         // everytime a route is changed refresh the activeUser
-        '$route': 'refreshActiveUser'
+        checkToken() {
+            if(localStorage.getItem('token')) {
+                this.loggedIn = true;
+            }
+        }
     },
     methods: {
         navToggle: function() {
@@ -65,18 +69,19 @@ export default {
         closeMenu: function() {
             document.getElementById('topNav').classList.toggle('active');
         },
-        login () {
-            this.$auth.loginRedirect()
+        checkToken() {
+            if(localStorage.getItem('token')) {
+                this.loggedIn = true;
+            }
         },
-        async refreshActiveUser () {
-            this.activeUser = await this.$auth.getUser()
-        },
-        async logout () {
-            await this.$auth.logout()
-            await this.refreshActiveUser()
-            this.$router.push('/')
+        logout() {
+            this.closeMenu();
+            console.log('logged out')
+            localStorage.removeItem("token");
+            location.href = '/';
+
         }
-    }
+    },
 }
 </script>
 
@@ -200,6 +205,8 @@ export default {
                     display: block;
                     border-right: none;
                     margin-bottom: 10px;
+                    font: 400 20px Helvetica, Arial, sans-serif;
+
                     a{
                         font: 400 20px Helvetica, Arial, sans-serif;
                         color: #fff;
