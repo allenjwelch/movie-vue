@@ -1,15 +1,28 @@
 // Require mysql
 const mysql = require("mysql");
-const config = require("./config.json");
+// const config = require("./config.json");
+let connection;
 
-// Set up our connection information
-let connection = mysql.createConnection({
-  port: 3306 || process.env.PORT,
-  host: "localhost" || config.production.host,
-  user: "root" || config.production.username,
-  password: "root" || config.production.password,
-  database: "movievue_db" || config.production.database
-});
+if(process.env.NODE_ENV === 'production') {
+    // Set up connection information
+    connection = mysql.createConnection({
+        port: process.env.PORT,
+        host: process.env.HOST,
+        user: process.env.USERNAME,
+        password: process.env.PASSWORD,
+        database: process.env.DATABASE
+    });
+} else {
+    // Set up connection information
+    connection = mysql.createConnection({
+        port: 3306,
+        host: "localhost",
+        user: "root",
+        password: "root",
+        database: "movievue_db"
+    });
+}
+
 
 // Connect to the database
 connection.connect(function(err) {
