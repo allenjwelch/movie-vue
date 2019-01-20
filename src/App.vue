@@ -55,4 +55,16 @@ body {
         transform: translateX(100%);
     }
 }
+
+#overlay {
+    &.active {
+        height: 100vh;
+        width: 100%;
+        background: rgba(51, 51, 51, 0.7);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 5;
+    }
+}
 </style>
