@@ -14,6 +14,8 @@
 
 <script>
 import api from '../router/api';
+// import Vue from 'vue';
+// Vue.forceUpdate();
 
 export default {
     name: 'Watchlist',
@@ -25,7 +27,7 @@ export default {
         }
     },
     beforeCreate: function() {
-        // console.log('beforecreate')
+        // this.methodThatForcesUpdate();
     },
     created: function() {
         // console.log('created')
@@ -54,6 +56,9 @@ export default {
         async getWatchlist() {
             this.watchlist = await api.getWatchlist(this.token);
             console.log(this.watchlist);
+        },
+        methodThatForcesUpdate() {
+            this.$forceUpdate();
         }
     }
 }

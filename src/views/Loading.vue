@@ -4,16 +4,28 @@
 
 
 <script>
+import router from '../router/index';
+
 export default {
     name: "Loading",
+    beforeMount: function() {
+        // this.methodThatForcesUpdate();
+        // console.log('beforemount')
+    },
     mounted: function() {
         this.redirect();
+        // console.log('mount')
     },
     methods: {
         redirect() {
             setTimeout(function() {
-                location.href = '/watchlist'
-            }, 5000);
+                // location.href = '/watchlist'
+                router.push('watchlist')
+            }, 2000);
+
+        },
+        methodThatForcesUpdate() {
+            this.$forceUpdate();
         }
     }
 };

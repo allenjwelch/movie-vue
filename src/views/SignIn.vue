@@ -32,21 +32,36 @@ export default {
     },
     computed: {
     },
-    created: function() {
+    beforeCreate: function() {
+        // this.pageRedirect();
+    },
+    mounted: function() {
         this.checkToken();
     },
     methods: {
         async submit() {
             console.log(`Email: ${this.email}; Password: ${this.password}`)
             await api.postNewUser(this.email, this.password).then(
-                router.push('loading')
+                // location.reload(),
+                this.checkToken()
             )
         },
         checkToken() {
             if(localStorage.getItem('token')) {
-                this.loggedIn = true;
+                this.loggedIn = true
+                // location.reload()
+                router.push('watchlist')
+            }
+        },
+        // pageReload() {
+        //     location.reload()
+        // },
+        pageRedirect() {
+            if(this.loggedIn) {
+                router.push('watchlist')
             }
         }
+
         // need method to check for token
     }
 }
