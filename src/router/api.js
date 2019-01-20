@@ -90,7 +90,6 @@ export default {
         .then(response => {
             localStorage.setItem('token', response.data)
             // console.log(response.data);
-            location.href = '/watchlist';
         })
         .catch(function (error) {
             console.log(error);

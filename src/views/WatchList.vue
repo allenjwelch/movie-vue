@@ -14,6 +14,8 @@
 
 <script>
 import api from '../router/api';
+// import Vue from 'vue';
+// Vue.forceUpdate();
 
 export default {
     name: 'Watchlist',
@@ -24,11 +26,25 @@ export default {
             watchlist: [],
         }
     },
+    beforeCreate: function() {
+        // this.methodThatForcesUpdate();
+    },
     created: function() {
+        // console.log('created')
+    },
+    beforeMount: function() {
         this.checkToken();
+        // console.log('beforemount')
     },
     mounted: function() {
         this.getWatchlist();
+        // console.log('mount')
+    },
+    beforeUpdate: function() {
+        // console.log('beforeupdate')
+    },
+    updated: function() {
+        // console.log('update')
     },
     methods: {
         checkToken() {
@@ -40,6 +56,9 @@ export default {
         async getWatchlist() {
             this.watchlist = await api.getWatchlist(this.token);
             console.log(this.watchlist);
+        },
+        methodThatForcesUpdate() {
+            this.$forceUpdate();
         }
     }
 }

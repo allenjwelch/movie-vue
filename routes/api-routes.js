@@ -1,7 +1,7 @@
 // Dependencies
 let connection = require('./connection.js');
 const jwt = require('jsonwebtoken');
-const JWTpassword = '123';
+const JWTpassword = '123' || process.env.JWT;
 let token = '';
 
 // Routes
@@ -34,6 +34,7 @@ module.exports = function(app) {
             // check if user exists in db
             connection.query( dbQuery, function(err, result) {
                 if (err) {
+                    console.log(err);
                     return connection.rollback(function() {
                       throw err;
                     });
@@ -77,9 +78,10 @@ module.exports = function(app) {
 
                         connection.commit(function(err) {
                             if (err) {
-                            return connection.rollback(function() {
-                                throw err;
-                            });
+                                console.log(err);
+                                return connection.rollback(function() {
+                                    throw err;
+                                });
                             }
                             console.log('success!');
                         });

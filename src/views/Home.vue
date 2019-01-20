@@ -1,7 +1,7 @@
 <template>
     <section>
         <img class="appLogo" alt="logo" src="../assets/MovieVue.png">
-        <h3>Version 1.3.0</h3>
+        <h3>Version 1.3.3</h3>
         <p>Movie Vue is a sample application built in Vue, Node, Express, & MySQL. The application currently utilizes a single API, 'The Movie DB', for content and allows users to browse by top movies and televsion shows or search for a specific selection by title and/or actors. In addition to browse and search capabilities, users signed onto the application can save their favorites to their watchlist.</p>
         <div class="versionInfo">
             <ul class="updates">

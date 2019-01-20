@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '../views/Home.vue';
 import SignIn from '../views/SignIn.vue';
+import Loading from '../views/Loading.vue';
 import Watchlist from '../views/Watchlist.vue';
 import Admin from '../views/Admin.vue';
 import Search from '../views/Search.vue';
@@ -32,6 +33,11 @@ let router = new Router({
             path: '/signin',
             name: 'signin',
             component: SignIn
+        },
+        {
+            path: '/loading',
+            name: 'loading',
+            component: Loading
         },
         {
             path: '/watchlist',

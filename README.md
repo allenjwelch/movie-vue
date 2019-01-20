@@ -1,4 +1,5 @@
 # Movie-Vue
+## v1.3.3
 
 #### GitHub: https://github.com/allenjwelch/movie-vue
 #### Heroku: https://movie-vue.herokuapp.com/
@@ -9,6 +10,19 @@ Built with the help of tutorials and guides from Scott Tolinski's "Vue.js for Ev
 
 ![title image](./src/assets/title.PNG)
 
+## Latest Updates:
+* MySQL Database Connection
+* User Sign-in/Out
+* JSON Web Tokens for Authentication
+* Watchlist for signed-in users
+
+## Upcoming Updates:
+* Sign-in modal from Header component instead of current sign-in page component
+* Stronger email and password validation
+* Password encryption
+* Ability to update/delete titles in watchlist
+* Notes and ratings for titles in Watchlist
+* Improved mobile responsiveness
 
 ## Build Setup
 
@@ -27,6 +41,11 @@ npm run build
 
 # build for production and view the bundle analyzer report
 npm run build --report
+
+# push updated build to Heroku
+git add -A
+git commit -m 'updated build'
+git push heroku master
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
