@@ -1,9 +1,19 @@
 // server.js
-var express = require('express');
-var path = require('path');
-var serveStatic = require('serve-static');
+const express = require('express');
+const serveStatic = require('serve-static');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const PORT = process.env.PORT || 5000;
+
 app = express();
+app.use(cors())
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
 app.use(serveStatic(__dirname + "/dist"));
-var port = process.env.PORT || 5000;
-app.listen(port);
-console.log('server started '+ port);
+
+require("./routes/api-routes.js")(app);
+
+app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+});

@@ -7,7 +7,7 @@
                 <h3>Release Date: {{ movie.release_date }}</h3>
                 <h3>Vote Average: {{ movie.vote_average }}</h3>
                 <h3>Genre: {{ movieGenres }}</h3>
-
+                <WatchlistAdd v-if="loggedIn" :show="movie"/>
                 <p>{{movie.overview}}</p>
             </div>
         </div>
@@ -18,18 +18,24 @@
 <script>
 const BACKDROP_PATH = "http://image.tmdb.org/t/p/w1280";
 import BackBtn from "./BackBtn.vue"
+import WatchlistAdd from "./WatchlistAdd.vue"
 
 export default {
     components: {
       BackBtn,
+      WatchlistAdd,
     },
     data() {
         return {
-            movie: {}
+            movie: {},
+            token: '',
+            loggedIn: false,
+
         };
     },
     created: function() {
         this.fetchData();
+        this.checkToken();
     },
     computed: {
         styles() {
@@ -62,7 +68,13 @@ export default {
             } catch (e) {
                 console.log(e);
             }
-        }
+        },
+        checkToken() {
+            if(localStorage.getItem('token')) {
+                this.loggedIn = true;
+                this.token = localStorage.getItem('token');
+            }
+        },
     },
 };
 </script>
