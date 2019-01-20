@@ -58,7 +58,25 @@ export default {
         // return baseURL; //--> works
         return data;
     },
-
+    async postWatchlist(token, title, title_id) {
+        axios({
+            method:'post',
+            url:`${baseURL}/api/watchlist/post`,
+            headers: {
+                Authorization: `${token}`
+            },
+            data: {
+                title: title,
+                title_id: title_id
+            },
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    },
     async postNewUser(email, password) {
 
         axios({

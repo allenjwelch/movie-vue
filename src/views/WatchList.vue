@@ -3,7 +3,7 @@
         <div v-if="loggedIn" class="loggedIn">
             <h1>Your Watchlist</h1>
             <ul>
-                <li v-bind:key="watch.id" v-for="watch in watchlist">{{watch.title}}</li>
+                <li class="watchlist-card" v-bind:key="watch.id" v-for="watch in watchlist">{{watch.title}}</li>
             </ul>
         </div>
         <div v-else class="logged">
@@ -47,11 +47,30 @@ export default {
 
 <style lang="scss" scoped>
 .watchlist {
-    max-width: 415px;
+    max-width: 95%;
     width: 80%;
     height: 100%;
     margin: 0 auto;
     padding-top: 50px;
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+
+        .watchlist-card {
+            padding: 15px 25px;
+            margin: 10px auto;
+            text-align: left;
+            box-shadow: 0 0 10px #ccc;
+            transition: all .5s;
+
+            &:hover {
+                box-shadow: 0 0 20px #ccc;
+                transform: scale(1.1);
+            }
+        }
+    }
+
 }
 </style>
 

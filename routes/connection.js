@@ -1,13 +1,14 @@
 // Require mysql
 const mysql = require("mysql");
+const config = require(__dirname + "./config.json");
 
 // Set up our connection information
 let connection = mysql.createConnection({
-  port: 3306,
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "movievue_db"
+  port: 3306 || process.env.PORT,
+  host: "localhost" || config.production.host,
+  user: "root" || config.production.username,
+  password: "root" || config.production.password,
+  database: "movievue_db" || config.production.database
 });
 
 // Connect to the database

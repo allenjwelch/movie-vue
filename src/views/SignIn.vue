@@ -1,14 +1,16 @@
 <template>
     <section>
-        <label for="email">Email</label>
-        <input v-model="email" type="email" name="email">
-        <br>
-        <label for="password">Password</label>
-        <input v-model="password" type="password" name="password">
-        <br>
-        <button @click.prevent="submit">Submit</button>
-
-        <h5>Logged In: {{loggedIn}}</h5>
+        <div class="signin">
+            <div class="email">
+                <label for="email">Email</label>
+                <input v-model="email" type="email" name="email">
+            </div>
+            <div class="password">
+                <label for="password">Password</label>
+                <input v-model="password" type="password" name="password">
+            </div>
+            <button @click.prevent="submit">Submit</button>
+        </div>
     </section>
 </template>
 
@@ -50,6 +52,7 @@ export default {
 <style lang="scss">
 section {
   height: 100%;
+  position: relative;
 }
 
 .appLogo {
@@ -66,6 +69,54 @@ section {
 p {
   width: 90%;
   margin: 10px auto;
+}
+
+.signin {
+    position: absolute;
+    margin: 0 auto;
+    top: 50px;
+    left: 0;
+    right: 0;
+    width: 250px;
+    height: 300px;
+    padding: 30px;
+    box-shadow: 0 0 30px #ccc;
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        text-align: left;
+    }
+
+    input {
+        width: 95%;
+        height: 20px;
+        padding: 5px;
+        border-radius: 8px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    button {
+        margin: 50px auto 0;
+        border-radius: 12px;
+        width: 80%;
+        padding: 10px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #fff;
+        background: #35495E;
+
+        &:hover {
+            background: #41B883;
+        }
+    }
+    .email, .password {
+        margin: 30px auto 0;
+    }
+
 }
 
 
