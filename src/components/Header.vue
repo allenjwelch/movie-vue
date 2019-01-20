@@ -11,8 +11,8 @@
 
         <nav class="navbar">
             <ul>
-                <li v-if="!loggedIn"><router-link to="/signin">Sign-In</router-link></li>
-                <li v-else @click="logout">Sign-Out</li>
+                <li v-if="!loggedIn" v-on:click="modal">Sign-In</li>
+                <li v-else v-on:click="logout">Sign-Out</li>
                 <li><router-link to="/discover">Discover</router-link></li>
                 <li><router-link to="/search">Search</router-link></li>
                 <li><router-link to="/watchlist">WatchList</router-link></li>
