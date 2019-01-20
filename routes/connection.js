@@ -1,6 +1,6 @@
 // Require mysql
 const mysql = require("mysql");
-const config = require(__dirname + "./config.json");
+const config = require("./config.json");
 
 // Set up our connection information
 let connection = mysql.createConnection({
