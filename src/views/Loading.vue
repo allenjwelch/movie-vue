@@ -1,5 +1,8 @@
 <template>
-    <img class="loading" src="../assets/loading.gif">
+    <!-- <img class="loading" src="../assets/loading.gif"> -->
+    <div class="img-container">
+        <img id="loading" src="../assets/MovieVue.png">
+    </div>
 </template>
 
 
@@ -8,13 +11,8 @@ import router from '../router/index';
 
 export default {
     name: "Loading",
-    beforeMount: function() {
-        // this.methodThatForcesUpdate();
-        // console.log('beforemount')
-    },
     mounted: function() {
         this.redirect();
-        // console.log('mount')
     },
     methods: {
         redirect() {
@@ -24,9 +22,9 @@ export default {
             }, 2000);
 
         },
-        methodThatForcesUpdate() {
-            this.$forceUpdate();
-        }
+        // methodThatForcesUpdate() {
+        //     this.$forceUpdate();
+        // }
     }
 };
 </script>
@@ -34,8 +32,22 @@ export default {
 
 <style lang="scss">
 
-.loading {
-    height: 450px;
-    width: 500px;
+.img-container {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+#loading {
+    margin: 80px auto 20px;
+    height: 200px;
+    width: 200px;
+    animation-name: scale;
+    animation-duration: 4s;
+}
+
+@keyframes scale {
+    from {height: 200px; width: 200px;}
+    to {height: 500px; width: 500px;}
 }
 </style>

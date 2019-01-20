@@ -1,5 +1,5 @@
 # Movie-Vue
-## v1.3.0
+## v1.3.3
 
 #### GitHub: https://github.com/allenjwelch/movie-vue
 #### Heroku: https://movie-vue.herokuapp.com/
