@@ -6,11 +6,11 @@ let connection;
 if(process.env.NODE_ENV === 'production') {
     // Set up connection information
     connection = mysql.createConnection({
-        port: 3306,
-        host: 'uoa25ublaow4obx5.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        user: 'vv9c7p35v5zsnyl5',
-        password: 'ov9szazhgglk7e77',
-        database: 'guxzxy1n09t2jp61'
+        port: process.env.PORT,
+        host: process.env.HOST,
+        user: process.env.USERNAME,
+        password: process.env.PASSWORD,
+        database: process.env.DATABASE
     });
 } else {
     // Set up connection information

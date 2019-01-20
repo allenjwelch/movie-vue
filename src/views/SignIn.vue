@@ -37,7 +37,9 @@ export default {
     methods: {
         async submit() {
             console.log(`Email: ${this.email}; Password: ${this.password}`)
-            await api.postNewUser(this.email, this.password)
+            await api.postNewUser(this.email, this.password).then(
+                location.href = '/watchlist'
+            )
         },
         checkToken() {
             if(localStorage.getItem('token')) {
