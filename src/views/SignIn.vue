@@ -17,6 +17,7 @@
 <script>
 // import axios from 'axios';
 import api from '../router/api';
+import router from '../router/index';
 
 // const API_URL = 'http://localhost:5000';
 
@@ -38,7 +39,7 @@ export default {
         async submit() {
             console.log(`Email: ${this.email}; Password: ${this.password}`)
             await api.postNewUser(this.email, this.password).then(
-                location.href = '/watchlist'
+                router.push('loading')
             )
         },
         checkToken() {

@@ -24,11 +24,25 @@ export default {
             watchlist: [],
         }
     },
+    beforeCreate: function() {
+        // console.log('beforecreate')
+    },
     created: function() {
+        // console.log('created')
+    },
+    beforeMount: function() {
         this.checkToken();
+        // console.log('beforemount')
     },
     mounted: function() {
         this.getWatchlist();
+        // console.log('mount')
+    },
+    beforeUpdate: function() {
+        // console.log('beforeupdate')
+    },
+    updated: function() {
+        // console.log('update')
     },
     methods: {
         checkToken() {
