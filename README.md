@@ -1,12 +1,23 @@
-# movie-vue
+# Movie-Vue
 
-> A Vue/Node application utilizing the Open Movie DB
+#### GitHub: https://github.com/allenjwelch/movie-vue
+#### Heroku: https://movie-vue.herokuapp.com/
+
+## Description:
+A Vue.js & Node.js application utilizing The Movie DB API. Upcoming features to include secure sign-in and user account with Watchlist of favorites using SQL database.
+Built with the help of tutorials and guides from Scott Tolinski's "Vue.js for Everyone" (https://www.leveluptutorials.com/tutorials/vuejs-for-everyone) & Nick Manning's "Easily deploy a Vue + Webpack App to Heroku in 5 Steps"(https://medium.com/netscape/deploying-a-vue-js-2-x-app-to-heroku-in-5-steps-tutorial-a69845ace489)
+
+![title image](./src/assets/title.PNG)
+
 
 ## Build Setup
 
 ``` bash
 # install dependencies
 npm install
+
+# start server
+node server.js
 
 # serve with hot reload at localhost:8080
 npm run dev

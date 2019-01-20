@@ -11,10 +11,12 @@
 
         <nav class="navbar">
             <ul>
-                <li><router-link to="/">Home</router-link></li>
+                <li v-if="!loggedIn"><router-link to="/signin">Sign-In</router-link></li>
+                <li v-else @click="logout">Sign-Out</li>
                 <li><router-link to="/discover">Discover</router-link></li>
                 <li><router-link to="/search">Search</router-link></li>
                 <li><router-link to="/watchlist">WatchList</router-link></li>
+
             </ul>
         </nav>
 
@@ -26,7 +28,8 @@
             </span>
 
             <ul class="navbar dropdown">
-                <li v-on:click="closeMenu"><router-link to="/">Home</router-link></li>
+                <li v-if="!loggedIn" v-on:click="closeMenu"><router-link to="/signin">Sign-In</router-link></li>
+                <li v-else v-on:click="logout">Sign-Out</li>
                 <li v-on:click="closeMenu"><router-link to="/discover">Discover</router-link></li>
                 <li v-on:click="closeMenu"><router-link to="/search">Search</router-link></li>
                 <li v-on:click="closeMenu"><router-link to="/watchlist">Watchlist</router-link></li>
@@ -44,8 +47,19 @@ export default {
     },
     data() {
         return {
-            name: 'Allen',
-            show: false,
+            loggedIn: false,
+
+        }
+    },
+    created: function() {
+        this.checkToken();
+    },
+    watch: {
+        // everytime a route is changed refresh the activeUser
+        checkToken() {
+            if(localStorage.getItem('token')) {
+                this.loggedIn = true;
+            }
         }
     },
     methods: {
@@ -54,8 +68,20 @@ export default {
         },
         closeMenu: function() {
             document.getElementById('topNav').classList.toggle('active');
+        },
+        checkToken() {
+            if(localStorage.getItem('token')) {
+                this.loggedIn = true;
+            }
+        },
+        logout() {
+            this.closeMenu();
+            console.log('logged out')
+            localStorage.removeItem("token");
+            location.href = '/';
+
         }
-    }
+    },
 }
 </script>
 
@@ -101,6 +127,8 @@ export default {
             li {
                 display: inline-block;
                 padding: 0 20px;
+                color: #fff;
+                cursor: pointer;
                 &:not(:last-child) {
                     border-right: 1px solid #fff;
                 }
@@ -177,6 +205,8 @@ export default {
                     display: block;
                     border-right: none;
                     margin-bottom: 10px;
+                    font: 400 20px Helvetica, Arial, sans-serif;
+
                     a{
                         font: 400 20px Helvetica, Arial, sans-serif;
                         color: #fff;

@@ -9,6 +9,7 @@
                 <h4>{{ tvShow.number_of_seasons }} Seasons</h4>
                 <h4>{{ tvShow.number_of_episodes }} Episodes</h4>
                 <h4>Network: {{ tvShow.networks[0].name }}</h4>
+                <WatchlistAdd v-if="loggedIn" :show="tvShow"/>
                 <p>{{tvShow.overview}}</p>
             </div>
         </div>
@@ -19,18 +20,23 @@
 <script>
 const BACKDROP_PATH = "http://image.tmdb.org/t/p/w1280";
 import BackBtn from "./BackBtn.vue"
+import WatchlistAdd from "./WatchlistAdd.vue"
 
 export default {
     data() {
         return {
-            tvShow: {}
+            tvShow: {},
+            token: '',
+            loggedIn: false,
         };
     },
     components: {
       BackBtn,
+      WatchlistAdd,
     },
     created: function() {
         this.fetchData();
+        this.checkToken();
     },
     computed: {
         styles() {
@@ -54,6 +60,12 @@ export default {
                 console.log(tvShow);
             } catch (e) {
                 console.log(e);
+            }
+        },
+        checkToken() {
+            if(localStorage.getItem('token')) {
+                this.loggedIn = true;
+                this.token = localStorage.getItem('token');
             }
         },
     }
