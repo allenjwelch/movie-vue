@@ -42,20 +42,15 @@ export default {
         async submit() {
             console.log(`Email: ${this.email}; Password: ${this.password}`)
             await api.postNewUser(this.email, this.password).then(
-                // location.reload(),
                 this.checkToken()
             )
         },
         checkToken() {
             if(localStorage.getItem('token')) {
                 this.loggedIn = true
-                // location.reload()
                 router.push('watchlist')
             }
         },
-        // pageReload() {
-        //     location.reload()
-        // },
         pageRedirect() {
             if(this.loggedIn) {
                 router.push('watchlist')

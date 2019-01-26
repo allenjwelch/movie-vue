@@ -303,6 +303,10 @@ export default {
                 &:hover {
                     background: #41B883;
                 }
+
+                &:focus {
+                    outline: none;
+                }
             }
             .email, .password {
                 margin: 30px auto 0;
@@ -316,7 +320,7 @@ export default {
             height: 100vh;
             width: 100%;
             background: rgba(51, 51, 51, 0.7);
-            position: absolute;
+            position: fixed;
             top: 0;
             bottom: 0;
             z-index: 5;
