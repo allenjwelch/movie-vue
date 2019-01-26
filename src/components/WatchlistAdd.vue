@@ -80,9 +80,10 @@ export default {
         .popup {
             background: #ccc;
             padding: 2px 5px;
+            margin: 90px;
             position: absolute;
             bottom: -50px;
-            left: -100%;
+            right: 0;
             border-radius: 12px;
 
         }
