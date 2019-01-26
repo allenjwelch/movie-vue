@@ -63,7 +63,7 @@ export default {
             }
         },
         checkToken() {
-            if(localStorage.getItem('token')) {
+            if(localStorage.getItem('token') && localStorage.getItem('token') != 'false' && localStorage.getItem('token') != 'true') {
                 this.loggedIn = true;
                 this.token = localStorage.getItem('token');
             }

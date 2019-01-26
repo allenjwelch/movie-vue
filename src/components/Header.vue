@@ -38,6 +38,14 @@
 
         <div id="modal">
             <div class="signin">
+                <div class="popup-container">
+                    <div  class="popup register" v-bind:key="index" v-for="index in registerFail">
+                        <p v-if="index === true">Email address is already in use.</p>
+                    </div>
+                    <div  class="popup login" v-bind:key="index" v-for="index in loginFail">
+                        <p v-if="index === true">Email or Password is in correct</p>
+                    </div>
+                </div>
                 <div class="email">
                     <label for="email">Email</label>
                     <input v-model="email" type="email" name="email">
@@ -70,7 +78,8 @@ export default {
         return {
             loggedIn: false,
             password: '', //! <<-- probably not a good idea..
-            loggedIn: false,
+            loginFail: [],
+            registerFail: [],
         }
     },
     created: function() {
@@ -84,7 +93,7 @@ export default {
             document.getElementById('topNav').classList.toggle('active');
         },
         checkToken() {
-            if(localStorage.getItem('token')) {
+            if(localStorage.getItem('token') && localStorage.getItem('token') != 'false' && localStorage.getItem('token') != 'true') {
                 this.loggedIn = true;
                 document.getElementById('modal').classList.remove('active');
                 document.getElementById('overlay').classList.remove('active');
@@ -92,15 +101,17 @@ export default {
             }
         },
         async register() {
-            await api.postNewUser(this.email, this.password).then(
+            this.registerFail = await api.postNewUser(this.email, this.password).then(
                 this.checkToken()
             )
+            console.log(this.registerFail);
             this.checkToken()
         },
         async login() {
-            await api.getUser(this.email, this.password).then(
+            this.loginFail = await api.getUser(this.email, this.password).then(
                 this.checkToken()
             )
+            console.log(this.loginFail);
             this.checkToken()
         },
         logout() {
@@ -270,6 +281,21 @@ export default {
             box-shadow: 0 0 30px #ccc;
             z-index: 10;
 
+            .popup-container {
+                text-align: center;
+                font-size: 14px;
+                color: red;
+                margin-top: -10px;
+                .popup {
+
+                    p {
+                        text-align: center;
+                        margin: 0 auto;
+                    }
+                    // margin-bottom: 5px;
+                }
+            }
+
             label {
                 display: block;
                 margin-bottom: 5px;
@@ -288,7 +314,7 @@ export default {
             }
 
             button {
-                margin: 50px auto 0;
+                margin: 20px auto 0px;
                 border-radius: 12px;
                 width: 80%;
                 padding: 10px;

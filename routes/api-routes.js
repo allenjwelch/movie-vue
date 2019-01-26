@@ -19,8 +19,8 @@ module.exports = function(app) {
 
     // GET User Login
     app.get('/api/user', function(req, res) {
-
-        let dbQuery = `SELECT * FROM users WHERE email = '${req.body.email}'`;
+        let loginFail = false;
+        let dbQuery = `SELECT * FROM users WHERE email = '${req.query.email}'`;
         // first open transaction
         connection.beginTransaction(function(err) {
             if (err) throw err;
@@ -33,11 +33,7 @@ module.exports = function(app) {
                     });
                 }
 
-                console.log(result[0]);
-                console.log(result[0].id);
-                console.log(result[0].email);
-
-                if(parseInt(req.body.password) === parseInt(result[0].password)) {
+                if(req.query.password === result[0].password) {
                     console.log('password matched')
                     let passwordProtectedUser = {
                         id: result[0].id,
@@ -48,9 +44,12 @@ module.exports = function(app) {
                     console.log(token);
                     console.log(passwordProtectedUser);
                     res.json(token)
-
                 } else {
                     console.log('INCORRECT password');
+                    loginFail = true;
+                    res.json(loginFail);
+                    res.end();
+                    return;
                 }
             })
         })
@@ -80,7 +79,7 @@ module.exports = function(app) {
 
     // POST new user
     app.post('/api/user/new', function(req, res) {
-
+        let registerFail = false;
         let dbQuery = `SELECT * FROM users WHERE email = '${req.body.email}'`;
         // first open transaction
         connection.beginTransaction(function(err) {
@@ -103,22 +102,11 @@ module.exports = function(app) {
                             throw err;
                           });
                         }
-
-                        if(parseInt(req.body.password) === parseInt(result[0].password)) {
-                            console.log('password matched')
-                            let passwordProtectedUser = {
-                                id: result[0].id,
-                                email: result[0].email,
-                            }
-                            // create jwt
-                            token = jwt.sign({passwordProtectedUser}, JWTpassword);
-                            // console.log(token);
-                            res.json(token)
-
-                        } else {
-                            console.log('INCORRECT password');
-                        }
                     });
+                    registerFail = true;
+                    res.json(registerFail)
+                    res.end();
+                    return;
                 } else {
                     console.log('User does NOT exist')
 
@@ -175,6 +163,7 @@ module.exports = function(app) {
         let uid;
         let title = req.body.title;
         let title_id = req.body.title_id;
+        let inWatchlist;
 
         jwt.verify(token, JWTpassword, function(err, data) {
             if (err) {
@@ -199,6 +188,7 @@ module.exports = function(app) {
                         // console.log(result);
                         if (result.length > 0) {
                             console.log('Title exists in user watchlist')
+                            inWatchlist = true;
                             connection.commit(function(err) {
                                 if (err) {
                                   return connection.rollback(function() {
@@ -206,8 +196,10 @@ module.exports = function(app) {
                                   });
                                 }
                             });
+                            res.json(inWatchlist);
                         } else {
                             console.log('Title does NOT exist in user watchlist')
+                            inWatchlist = false;
 
                             // if user does not already exist, create new user
                             dbQuery = `INSERT INTO watchlists (uid, title, title_id) VALUES ('${uid}', '${title}', '${title_id}')`;
@@ -215,7 +207,6 @@ module.exports = function(app) {
                             connection.query( dbQuery, function(err, result) {
                                 if (err) throw err;
                                 console.log(`Title ${title} Added!`);
-                                res.end();
 
                                 connection.commit(function(err) {
                                     if (err) {
@@ -225,6 +216,8 @@ module.exports = function(app) {
                                     }
                                     console.log('success!');
                                 });
+                                res.json(inWatchlist);
+                                res.end();
                             });
                         }
                     })

@@ -50,6 +50,8 @@ export default {
         return data;
     },
     async postWatchlist(token, title, title_id) {
+        let inWatchlist = [];
+
         axios({
             method:'post',
             url:`${baseURL}/api/watchlist/post`,
@@ -62,11 +64,14 @@ export default {
             },
         })
         .then(response => {
-            console.log(response);
+            inWatchlist.push(response.data);
+            console.log(inWatchlist);
         })
         .catch(function (error) {
             console.log(error);
         });
+        return inWatchlist;
+
     },
     async deleteFromWatchlist(token, title_id) {
         axios({
@@ -87,25 +92,27 @@ export default {
         });
     },
     async getUser(email, password) {
-
+        let loginFail = [];
         axios({
             method:'get',
             url:`${baseURL}/api/user`,
-            data: {
+            params: {
                 email: email,
                 password: password
-            },
+            }
         })
         .then(response => {
             localStorage.setItem('token', response.data)
-            // console.log(response.data);
+            loginFail.push(response.data);
+            console.log(loginFail);
         })
         .catch(function (error) {
             console.log(error);
         });
+        return loginFail;
     },
     async postNewUser(email, password) {
-
+        let registerFail = [];
         axios({
             method:'post',
             url:`${baseURL}/api/user/new`,
@@ -116,10 +123,12 @@ export default {
         })
         .then(response => {
             localStorage.setItem('token', response.data)
-            // console.log(response.data);
+            registerFail.push(response.data);
+            console.log(registerFail);
         })
         .catch(function (error) {
             console.log(error);
         });
+        return registerFail;
     }
 }
