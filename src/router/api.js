@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import axios from 'axios'
-// import oktaJwtVerifier from '@okta/jwt-verifier'
 let baseURL;
 let data;
 
@@ -20,28 +19,22 @@ export default {
         console.log(baseURL)
     },
     async getAllUsers() {
-        // let data = 'this should work';// works..
         let data = [];
         axios({
-
             method:'get',
             url:`${baseURL}/api/all`,
         })
         .then(response => {
-            // console.log(response.data);
             data.push(...response.data);
         })
         .catch(function (error) {
             console.log(error);
         });
-        // return baseURL; //--> works
         return data;
     },
     async getWatchlist(token) {
-        // let data = 'this should work';// works..
         let data = [];
         axios({
-
             method:'get',
             url:`${baseURL}/api/watchlist/`,
             headers: {
@@ -49,13 +42,11 @@ export default {
             }
         })
         .then(response => {
-            // console.log(response.data);
             data.push(...response.data);
         })
         .catch(function (error) {
             console.log(error);
         });
-        // return baseURL; //--> works
         return data;
     },
     async postWatchlist(token, title, title_id) {
@@ -77,11 +68,47 @@ export default {
             console.log(error);
         });
     },
+    async deleteFromWatchlist(token, title_id) {
+        axios({
+            method:'delete',
+            url:`${baseURL}/api/watchlist/delete`,
+            headers: {
+                Authorization: `${token}`
+            },
+            data: {
+                title_id: title_id,
+            },
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    },
+    async getUser(email, password) {
+
+        axios({
+            method:'get',
+            url:`${baseURL}/api/user`,
+            data: {
+                email: email,
+                password: password
+            },
+        })
+        .then(response => {
+            localStorage.setItem('token', response.data)
+            // console.log(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    },
     async postNewUser(email, password) {
 
         axios({
             method:'post',
-            url:`${baseURL}/api/user`,
+            url:`${baseURL}/api/user/new`,
             data: {
                 email: email,
                 password: password

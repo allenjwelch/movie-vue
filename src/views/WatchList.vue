@@ -2,9 +2,13 @@
     <section class="watchlist">
         <div v-if="loggedIn" class="loggedIn">
             <h1>Your Watchlist</h1>
-            <ul>
-                <li class="watchlist-card" v-bind:key="watch.id" v-for="watch in watchlist">{{watch.title}}</li>
+            <ul v-if="watchlist.length > 0" >
+                <li class="watchlist-card" v-bind:key="watch.id" v-for="watch in watchlist">
+                    {{watch.title}}
+                    <img @click="deleteTitle" :data-id="watch.title_id" src="../assets/delete.png" alt="delete">
+                </li>
             </ul>
+            <h5 v-else>You do not have any shows in your watchlist...</h5>
         </div>
         <div v-else class="logged">
             <h1>Please log in to view your watchlist</h1>
@@ -26,12 +30,12 @@ export default {
             watchlist: [],
         }
     },
-    beforeCreate: function() {
-        // this.methodThatForcesUpdate();
-    },
-    created: function() {
-        // console.log('created')
-    },
+    // beforeCreate: function() {
+    //     // this.methodThatForcesUpdate();
+    // },
+    // created: function() {
+    //     // console.log('created')
+    // },
     beforeMount: function() {
         this.checkToken();
         // console.log('beforemount')
@@ -40,12 +44,12 @@ export default {
         this.getWatchlist();
         // console.log('mount')
     },
-    beforeUpdate: function() {
-        // console.log('beforeupdate')
-    },
-    updated: function() {
-        // console.log('update')
-    },
+    // beforeUpdate: function() {
+    //     // console.log('beforeupdate')
+    // },
+    // updated: function() {
+    //     // console.log('update')
+    // },
     methods: {
         checkToken() {
             if(localStorage.getItem('token')) {
@@ -57,9 +61,16 @@ export default {
             this.watchlist = await api.getWatchlist(this.token);
             console.log(this.watchlist);
         },
-        methodThatForcesUpdate() {
-            this.$forceUpdate();
-        }
+        async deleteTitle(id) {
+            let title_id = event.currentTarget;
+            title_id = title_id.getAttribute('data-id');
+            await api.deleteFromWatchlist(this.token, title_id).then(
+                this.getWatchlist()
+            )
+        },
+        // methodThatForcesUpdate() {
+        //     this.$forceUpdate();
+        // }
     }
 }
 </script>
@@ -82,6 +93,16 @@ export default {
             text-align: left;
             box-shadow: 0 0 10px #ccc;
             transition: all .5s;
+            position: relative;
+
+            img {
+                position: absolute;
+                right: 15px;
+                top: 8px;
+                height: 20px;
+                padding: 6px;
+                cursor: pointer;
+            }
 
             &:hover {
                 box-shadow: 0 0 20px #ccc;

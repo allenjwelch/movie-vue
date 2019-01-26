@@ -46,7 +46,8 @@
                     <label for="password">Password</label>
                     <input v-model="password" type="password" name="password">
                 </div>
-                <button @click.prevent="submit">Submit</button>
+                <button @click.prevent="login">Log-in</button>
+                <button @click.prevent="register">Register</button>
             </div>
         </div>
 
@@ -75,14 +76,6 @@ export default {
     created: function() {
         this.checkToken();
     },
-    // watch: {
-    //     // everytime a route is changed refresh the activeUser
-    //     checkToken() {
-    //         if(localStorage.getItem('token')) {
-    //             this.loggedIn = true;
-    //         }
-    //     }
-    // },
     methods: {
         navToggle: function() {
             document.getElementById('topNav').classList.toggle('active');
@@ -98,13 +91,17 @@ export default {
                 router.push('loading')
             }
         },
-        async submit() {
-            // console.log(`Email: ${this.email}; Password: ${this.password}`)
+        async register() {
             await api.postNewUser(this.email, this.password).then(
                 this.checkToken()
             )
             this.checkToken()
-
+        },
+        async login() {
+            await api.getUser(this.email, this.password).then(
+                this.checkToken()
+            )
+            this.checkToken()
         },
         logout() {
             this.closeMenu();
