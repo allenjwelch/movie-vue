@@ -1,7 +1,8 @@
 <template>
     <transition name="fade">
         <div class="tvShow-wrapper" :style="styles">
-          <BackBtn />
+            <BackBtn />
+            <WatchlistAdd v-if="loggedIn" :show="tvShow"/>
             <div class="tvShow-info">
                 <h1>{{ tvShow.name }}</h1>
                 <h3>Vote Average: {{ tvShow.vote_average }}</h3>
@@ -9,7 +10,6 @@
                 <h4>{{ tvShow.number_of_seasons }} Seasons</h4>
                 <h4>{{ tvShow.number_of_episodes }} Episodes</h4>
                 <h4>Network: {{ tvShow.networks[0].name }}</h4>
-                <WatchlistAdd v-if="loggedIn" :show="tvShow"/>
                 <p>{{tvShow.overview}}</p>
             </div>
         </div>
@@ -63,7 +63,7 @@ export default {
             }
         },
         checkToken() {
-            if(localStorage.getItem('token')) {
+            if(localStorage.getItem('token') && localStorage.getItem('token') != 'false' && localStorage.getItem('token') != 'true') {
                 this.loggedIn = true;
                 this.token = localStorage.getItem('token');
             }

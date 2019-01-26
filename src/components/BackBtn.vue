@@ -21,6 +21,7 @@ export default {
   left: 20px;
   top: 20px;
   height: 50px;
+  z-index: 20;
   filter: opacity(50%);
   cursor: pointer;
 
