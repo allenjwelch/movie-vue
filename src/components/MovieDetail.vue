@@ -1,13 +1,13 @@
 <template>
     <transition name="fade">
         <div class="movie-wrapper" :style="styles">
-          <BackBtn />
+            <BackBtn />
+            <WatchlistAdd v-if="loggedIn" :show="movie"/>
             <div class="movie-info">
                 <h1>{{ movie.title }}</h1>
                 <h3>Release Date: {{ movie.release_date }}</h3>
                 <h3>Vote Average: {{ movie.vote_average }}</h3>
                 <h3>Genre: {{ movieGenres }}</h3>
-                <WatchlistAdd v-if="loggedIn" :show="movie"/>
                 <p>{{movie.overview}}</p>
             </div>
         </div>
