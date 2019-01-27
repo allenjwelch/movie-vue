@@ -1,9 +1,9 @@
 <template>
     <transition name="fade">
         <div class="tvShow-wrapper" :style="styles">
-            <BackBtn />
-            <WatchlistAdd v-if="loggedIn" :show="tvShow"/>
             <div class="tvShow-info">
+                <BackBtn />
+                <WatchlistAdd v-if="loggedIn" :show="tvShow"/>
                 <h1>{{ tvShow.name }}</h1>
                 <h3>Vote Average: {{ tvShow.vote_average }}</h3>
                 <h4>First Aired: {{ tvShow.first_air_date }}</h4>
@@ -92,9 +92,21 @@ export default {
         margin: 0 auto;
         width: auto;
         opacity: 0.8;
+        max-height: 50%;
+        overflow: scroll;
+        border-bottom: 20px solid #fff;
 
+        h1 {
+            margin: 0 auto 10px;
+            padding: 0 30px;
+        }
         h4 {
             margin: 0;
+        }
+
+        p {
+            // max-height: 120px;
+            // overflow: scroll;
         }
     }
 }

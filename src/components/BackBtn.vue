@@ -25,9 +25,9 @@ export default {
   filter: opacity(50%);
   cursor: pointer;
 
-  @media (min-width: 1000px) {
-    top: 100px;
-    height: 100px;
-  }
+//   @media (min-width: 1000px) {
+//     top: 100px;
+//     height: 100px;
+//   }
 }
 </style>

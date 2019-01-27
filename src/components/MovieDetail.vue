@@ -1,9 +1,9 @@
 <template>
     <transition name="fade">
         <div class="movie-wrapper" :style="styles">
-            <BackBtn />
-            <WatchlistAdd v-if="loggedIn" :show="movie"/>
             <div class="movie-info">
+                <BackBtn />
+                <WatchlistAdd v-if="loggedIn" :show="movie"/>
                 <h1>{{ movie.title }}</h1>
                 <h3>Release Date: {{ movie.release_date }}</h3>
                 <h3>Vote Average: {{ movie.vote_average }}</h3>
@@ -99,13 +99,22 @@ export default {
         margin: 0 auto;
         width: auto;
         opacity: 0.7;
+        max-height: 50%;
+        overflow: scroll;
+        border-bottom: 20px solid #fff;
 
         h1 {
-          margin: 10px auto;
+          margin: 0px auto 10px;
+          padding: 0 30px;
         }
         h3 {
           margin: 0;
         }
+
+        // p {
+        //     max-height: 120px;
+        //     overflow: scroll;
+        // }
     }
 }
 </style>

@@ -74,9 +74,9 @@ export default {
         position: relative;
         height: 50px;
 
-        @media (min-width: 1000px) {
-            height: 100px;
-        }
+        // @media (min-width: 1000px) {
+        //     height: 100px;
+        // }
         .popup {
             background: #ccc;
             padding: 2px 5px;
