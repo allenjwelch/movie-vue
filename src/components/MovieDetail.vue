@@ -85,7 +85,7 @@ export default {
     position: relative;
     padding-top: 0vh;
     background-size: cover !important;
-    background-position: 50% 100% !important;
+    background-position: 50% 0% !important;
     min-height: calc(100vh - 50px - 30px);
 
     .movie-info {
